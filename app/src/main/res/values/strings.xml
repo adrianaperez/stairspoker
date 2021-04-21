@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Juego de Poker</string>
+    <string name="btn_play">Jugar</string>
+    <string name="btn_close">Salir</string>
+    <string name="btn_init">Jugar</string>
+    <string name="btn_clean">Limpiar</string>
+    <string name="btn_quit">Salir</string>
+    <string name="message_max_cards">Seleccionar un máximo de 7 cartas</string>
+    <string name="message_select_cards">Seleccionar cartas</string>
+    <string name="message_winner">Haz ganado, es escalera</string>
+    <string name="message_loser">Haz perdido, no es escalera</string>
+</resources>
