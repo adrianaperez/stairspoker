@@ -11,9 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.poker.laddergames.helpers.GeneralHelpers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.*;
 
 
 public class GamesActivity extends Activity {
@@ -64,8 +65,8 @@ public class GamesActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     addCards(j);
-                    int[] hand = convertIntegers(cardsInDashboard);
-                    txtHand.setText(HAND + buildStringHand(hand));
+                    int[] hand = GeneralHelpers.convertIntegers(cardsInDashboard);
+                    txtHand.setText(HAND + GeneralHelpers.buildStringHand(hand));
                 }
             });
         }
@@ -119,9 +120,9 @@ public class GamesActivity extends Activity {
 
     // Play Game
     private void play(){
-        int[] cards = convertIntegers(cardsInDashboard);
+        int[] cards = GeneralHelpers.convertIntegers(cardsInDashboard);
 
-        boolean result = isStairs(cards);
+        boolean result = GeneralHelpers.isStairs(cards);
         showResult(cards, result);
     }
 
@@ -134,7 +135,7 @@ public class GamesActivity extends Activity {
     
     // Print the hand and whether or not it is a ladder on the console
     private void showResult(int[] hand, boolean result) {
-        txtHand.setText(HAND + buildStringHand(hand));
+        txtHand.setText(HAND + GeneralHelpers.buildStringHand(hand));
         String message;
         
         if(result)
@@ -146,63 +147,6 @@ public class GamesActivity extends Activity {
         toast.show();
 
         playBtn.setEnabled(false);
-    }
-
-    // Build string of hand string
-    private static String buildStringHand(int[] hand){
-        String cards = "[";
-        for (int i = 0; i < hand.length; i++) {
-            if(i == hand.length - 1)
-                cards += hand[i] + "]";
-            else
-                cards += hand[i] + ",";
-        }
-        return cards;
-    }
-
-    // Determines whether a card game in a list represents a poker straight
-    private static boolean isStairs(int[] hand) {
-        int[] cards = removeDuplicates(hand);
-
-        if (cards.length < 5)
-            return false;
-
-        Arrays.sort(cards);
-
-        for (int i = 0; i < cards.length; i++) {
-            int counter = 1;
-
-            if(cards[i] == 2 && cards[cards.length - 1] == 14)
-                counter++;
-
-            for (int j = i + 1; j < cards.length; j++) {
-                if(cards[j] != cards[j-1] + 1)
-                    break;
-
-                counter++;
-            }
-
-            if (counter >= 5)
-                return true;
-        }
-        return false;
-    }
-
-    // Remove duplicate elements from an array
-    private static int[] removeDuplicates(int[] arr) {
-        return Arrays.stream(arr)
-                .distinct()
-                .toArray();
-    }
-
-    // Convert Integer List to int Array
-    public static int[] convertIntegers(List<Integer> integers)
-    {
-        int[] ret = new int[integers.size()];
-        for (int i=0; i < ret.length; i++)
-            ret[i] = integers.get(i).intValue();
-
-        return ret;
     }
 
     private void loadText(){
